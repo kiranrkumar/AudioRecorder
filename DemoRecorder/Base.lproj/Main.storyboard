@@ -27,19 +27,18 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="adc-aC-aVt">
                                 <rect key="frame" x="79.5" y="283.5" width="216" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-zM-uea" userLabel="Record" customClass="KiranButton" customModule="DemoRecorder" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-zM-uea" userLabel="Record" customClass="KiranButton" customModule="DemoRecorder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="acy-sD-UEh"/>
                                             <constraint firstAttribute="width" constant="100" id="yi5-6X-K2g"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Record">
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Record" image="record.png">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="recordAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zqy-zs-GEA"/>
+                                            <action selector="recordTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lcw-ZF-2mX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-Cq-4DC" userLabel="Play">
@@ -48,7 +47,7 @@
                                             <constraint firstAttribute="height" constant="100" id="MRS-eu-b61"/>
                                             <constraint firstAttribute="width" constant="100" id="UUN-LX-m3y"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="play.png"/>
+                                        <state key="normal" title="PlayPause" image="play.png"/>
                                         <connections>
                                             <action selector="playPauseTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlU-wX-NPz"/>
                                         </connections>
@@ -77,5 +76,6 @@
     </scenes>
     <resources>
         <image name="play.png" width="117" height="117"/>
+        <image name="record.png" width="117" height="117"/>
     </resources>
 </document>
