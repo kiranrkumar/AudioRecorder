@@ -38,44 +38,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidFinish(_:)), name: PlaybackDidFinishNotification, object: recorderAndPlayer)
     }
     
-    //MARK: Notification Responders
-    @objc func _recordingDidStart(_ notification:Notification) {
-        playPauseImageButton.isEnabled = false;
-        updateButton(button: recordButton, image: stopImage!, identifer: stopImageID)
-    }
-    
-    @objc func _recordingDidFinish(_ notification:Notification) {
-        updateButton(button: recordButton, image: recordImage!, identifer: recordImageID)
-        playPauseImageButton.isEnabled = true;
-    }
-    
-    @objc func _playbackDidStart(_ notification:Notification) {
-        recordButton.isEnabled = false;
-        updateButton(button : playPauseImageButton, image: pauseImage!, identifer: pauseImageID)
-    }
-    
-    @objc func _playbackDidFinish(_ notification:Notification) {
-        updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
-        recordButton.isEnabled = true;
-    }
-    
-    func getDocumentDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        playPauseImageButton.isEnabled = true
-    }
-    
-    @IBAction func recordAction(_ sender: Any) {
-        if recordButton.titleLabel?.text == "Record" {
-            recorderAndPlayer.record()
-        } else {
-            recorderAndPlayer.stopRecording()
-        }
-    }
-    
+    //MARK: IBActions
     @IBAction func playPauseTouchUp(_ sender: Any) {
 
         let identifier = playPauseImageButton.accessibilityIdentifier!
@@ -97,6 +60,33 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         } else {
             assert(false, "ViewController::recordTouchUp -> Unexpected button identifier")
         }
+    }
+    
+    //MARK: Notification Responders
+    @objc func _recordingDidStart(_ notification:Notification) {
+        playPauseImageButton.isEnabled = false;
+        updateButton(button: recordButton, image: stopImage!, identifer: stopImageID)
+    }
+    
+    @objc func _recordingDidFinish(_ notification:Notification) {
+        updateButton(button: recordButton, image: recordImage!, identifer: recordImageID)
+        playPauseImageButton.isEnabled = true;
+    }
+    
+    @objc func _playbackDidStart(_ notification:Notification) {
+        recordButton.isEnabled = false;
+        updateButton(button : playPauseImageButton, image: pauseImage!, identifer: pauseImageID)
+    }
+    
+    @objc func _playbackDidFinish(_ notification:Notification) {
+        updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
+        recordButton.isEnabled = true;
+    }
+    
+    //MARK: - Other
+    func getDocumentDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
     
     func updateButton(button : UIButton, image : UIImage, identifer : String) {
