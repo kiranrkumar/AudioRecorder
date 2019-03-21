@@ -82,31 +82,26 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     }
     
     func record() {
-        print("Model: record()\n")
         _soundRecorder.record()
         NotificationCenter.default.post(name: RecordingDidStartNotification, object: self)
     }
     
     func stopRecording() {
-        print("Model: stopRecording()\n")
         _soundRecorder.stop()
     }
     
     func play() {
-        print("Model: play()\n")
         _soundPlayer.play()
         NotificationCenter.default.post(name: PlaybackDidStartNotification, object: self)
     }
     
     func stopPlayback() {
-        print("Model: stopPlayback()\n")
         _soundPlayer.stop()
         NotificationCenter.default.post(name: PlaybackDidFinishNotification, object: self)
     }
 
     //MARK: - AVAudioRecorderDelegate
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("Model: audioRecorderDidFinishRecording()\n")
         setUpPlayer()
         NotificationCenter.default.post(name: RecordingDidFinishNotification, object: self)
 
@@ -114,7 +109,6 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     
     //MARK: - AVAudioPlayerDelegate
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Model: audioRecorderDidFinishPlaying()\n")
         NotificationCenter.default.post(name: PlaybackDidFinishNotification, object: self)
     }
     

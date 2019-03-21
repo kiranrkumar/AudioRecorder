@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DemoRecorder/ViewController.swift"
-            timestampString = "574839799.87047"
+            timestampString = "574842682.700321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "_recordingDidStart(_:)"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "playPauseTouchUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

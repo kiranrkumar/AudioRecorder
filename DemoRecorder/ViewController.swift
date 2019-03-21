@@ -20,6 +20,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var playPauseImageButton: UIButton!
 
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
+    let playImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "play", ofType: "png")!)
+    let pauseImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "pause", ofType: "png")!)
+    let playImageID = "ButtonPlay"
+    let pauseImageID = "ButtonPause"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,34 +32,37 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         recordButton.layer.cornerRadius = 10;
         playButton.isEnabled = false
         
+        playPauseImageButton.accessibilityIdentifier = playImageID
+        
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidFinish(_:)), name: RecordingDidFinishNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidStart(_:)), name: PlaybackDidStartNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidFinish(_:)), name: PlaybackDidFinishNotification, object: recorderAndPlayer)
     }
     
+    //MARK: Notification Responders
     @objc func _recordingDidStart(_ notification:Notification) {
-        print("Controller: _recordingDidStart\n")
         recordButton.setTitle("Stop", for: .normal)
         playButton.isEnabled = false;
+        playPauseImageButton.isEnabled = false;
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
-        print("Controller: _recordingDidFinish\n")
         recordButton.setTitle("Record", for: .normal)
         playButton.isEnabled = true;
+        playPauseImageButton.isEnabled = true;
     }
     
     @objc func _playbackDidStart(_ notification:Notification) {
-        print("Controller: _playbackDidStart\n")
         recordButton.isEnabled = false;
         playButton.setTitle("Stop", for: .normal)
+        updateButton(image: pauseImage!, identifer: pauseImageID)
     }
     
     @objc func _playbackDidFinish(_ notification:Notification) {
-        print("Controller: _playbackDidFinish\n")
         recordButton.isEnabled = true;
         playButton.setTitle("Play", for: .normal)
+        updateButton(image: playImage!, identifer: playImageID)
     }
     
     func getDocumentDirectory() -> URL {
@@ -88,19 +95,21 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         }
     }
     
+    @IBAction func playPauseTouchUp(_ sender: Any) {
+
+        let identifier = playPauseImageButton.accessibilityIdentifier!
+        if (identifier.elementsEqual(playImageID)) {
+            recorderAndPlayer.play()
+        } else if (identifier.elementsEqual(pauseImageID)) {
+            recorderAndPlayer.stopPlayback()
+        } else {
+            assert(false, "ViewController::playPauseTouchUp -> Unexpected button identifier")
+        }
+    }
     
-//    @IBAction func playPauseTouchUp(_ sender: Any) {
-//        var imagePath : String
-//        if playPauseState == .paused {
-//            playPauseState = .playing
-//            imagePath = Bundle.main.path(forResource: "pause", ofType: "png") ?? "" // ?? makes this default to "" if result is nil
-//            soundPlayer.play()
-//        } else {
-//            playPauseState = .paused
-//            imagePath = Bundle.main.path(forResource: "play", ofType: "png")! // ! forces "unwrap" meaning that the program will abort if result is nil
-//            soundPlayer.pause()
-//        }
-//        playPauseImageButton.setImage(UIImage(contentsOfFile: imagePath), for: .normal)
-//    }
+    func updateButton(image : UIImage, identifer : String) {
+        playPauseImageButton.setImage(image, for: .normal)
+        playPauseImageButton.accessibilityIdentifier = identifer
+    }
 }
 
