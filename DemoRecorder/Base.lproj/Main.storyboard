@@ -18,15 +18,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2I3-JT-l8n">
-                                <rect key="frame" x="85" y="283.5" width="205" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiran's Basic Recorder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Re-43-j6D">
+                                <rect key="frame" x="53.5" y="70" width="268" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="adc-aC-aVt">
+                                <rect key="frame" x="79.5" y="283.5" width="216" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-zM-uea" userLabel="Record" customClass="KiranButton" customModule="DemoRecorder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="1KA-yP-4Cc"/>
-                                            <constraint firstAttribute="height" constant="100" id="lHB-Km-4Ys"/>
+                                            <constraint firstAttribute="height" constant="100" id="acy-sD-UEh"/>
+                                            <constraint firstAttribute="width" constant="100" id="yi5-6X-K2g"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="Record">
@@ -36,54 +42,30 @@
                                             <action selector="recordAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zqy-zs-GEA"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2N-K2-8L6" userLabel="Play" customClass="KiranButton" customModule="DemoRecorder" customModuleProvider="target">
-                                        <rect key="frame" x="105" y="0.0" width="100" height="100"/>
-                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-Cq-4DC" userLabel="Play">
+                                        <rect key="frame" x="116" y="0.0" width="100" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="FuH-XS-R2n"/>
-                                            <constraint firstAttribute="height" constant="100" id="Ox8-bA-bV4"/>
+                                            <constraint firstAttribute="height" constant="100" id="MRS-eu-b61"/>
+                                            <constraint firstAttribute="width" constant="100" id="UUN-LX-m3y"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Play">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
+                                        <state key="normal" title="Button" image="play.png"/>
                                         <connections>
-                                            <action selector="playAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aHX-Z2-dyz"/>
+                                            <action selector="playPauseTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlU-wX-NPz"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiran's Basic Recorder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Re-43-j6D">
-                                <rect key="frame" x="53.5" y="70" width="268" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-Cq-4DC" userLabel="Play">
-                                <rect key="frame" x="162.5" y="438" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="W0r-Ju-lYP"/>
-                                    <constraint firstAttribute="height" constant="50" id="W3m-fz-TJY"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="play.png"/>
-                                <connections>
-                                    <action selector="playPauseTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlU-wX-NPz"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="2I3-JT-l8n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E8q-6E-ZCy"/>
+                            <constraint firstItem="adc-aC-aVt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Gnn-OM-OPq"/>
                             <constraint firstItem="2Re-43-j6D" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Wzg-cS-IhE"/>
-                            <constraint firstItem="2I3-JT-l8n" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZLS-p4-2kX"/>
-                            <constraint firstItem="AGH-Cq-4DC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mmw-fZ-ahO"/>
                             <constraint firstItem="2Re-43-j6D" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="qXU-MF-Uca"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AGH-Cq-4DC" secondAttribute="bottom" constant="179" id="zzo-ow-LzM"/>
+                            <constraint firstItem="adc-aC-aVt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tan-mP-fmO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="playButton" destination="V2N-K2-8L6" id="61Z-Y0-5wD"/>
                         <outlet property="playPauseImageButton" destination="AGH-Cq-4DC" id="KeZ-Zj-vIB"/>
                         <outlet property="recordButton" destination="ra9-zM-uea" id="jeY-FY-yem"/>
                     </connections>

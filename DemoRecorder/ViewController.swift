@@ -16,7 +16,6 @@ enum PlayPauseState {
 class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate { // KRKNOTES - Looks like protocols and superclasses are part of the same list. Here, I'm inheriting from UIViewController and conforming to two protocols
 
     @IBOutlet weak var recordButton: UIButton!
-    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playPauseImageButton: UIButton!
 
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
@@ -28,10 +27,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        playButton.layer.cornerRadius = 10;
         recordButton.layer.cornerRadius = 10;
-        playButton.isEnabled = false
-        
+        playPauseImageButton.isEnabled = false;
         playPauseImageButton.accessibilityIdentifier = playImageID
         
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
@@ -43,25 +40,21 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     //MARK: Notification Responders
     @objc func _recordingDidStart(_ notification:Notification) {
         recordButton.setTitle("Stop", for: .normal)
-        playButton.isEnabled = false;
         playPauseImageButton.isEnabled = false;
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
         recordButton.setTitle("Record", for: .normal)
-        playButton.isEnabled = true;
         playPauseImageButton.isEnabled = true;
     }
     
     @objc func _playbackDidStart(_ notification:Notification) {
         recordButton.isEnabled = false;
-        playButton.setTitle("Stop", for: .normal)
         updateButton(image: pauseImage!, identifer: pauseImageID)
     }
     
     @objc func _playbackDidFinish(_ notification:Notification) {
         recordButton.isEnabled = true;
-        playButton.setTitle("Play", for: .normal)
         updateButton(image: playImage!, identifer: playImageID)
     }
     
@@ -71,12 +64,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        playButton.isEnabled = true
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        recordButton.isEnabled = true
-        playButton.setTitle("Play", for: .normal)
+        playPauseImageButton.isEnabled = true
     }
     
     @IBAction func recordAction(_ sender: Any) {
@@ -84,14 +72,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             recorderAndPlayer.record()
         } else {
             recorderAndPlayer.stopRecording()
-        }
-    }
-    
-    @IBAction func playAction(_ sender: Any) {
-        if playButton.titleLabel?.text == "Play" {
-            recorderAndPlayer.play()
-        } else {
-            recorderAndPlayer.stopPlayback()
         }
     }
     
