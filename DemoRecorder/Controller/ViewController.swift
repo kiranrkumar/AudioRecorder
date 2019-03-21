@@ -9,10 +9,6 @@
 import UIKit
 import AVFoundation
 
-enum PlayPauseState {
-    case playing, paused
-}
-
 class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate { // KRKNOTES - Looks like protocols and superclasses are part of the same list. Here, I'm inheriting from UIViewController and conforming to two protocols
 
     @IBOutlet weak var recordButton: UIButton!
@@ -102,7 +98,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             assert(false, "ViewController::recordTouchUp -> Unexpected button identifier")
         }
     }
-    
     
     func updateButton(button : UIButton, image : UIImage, identifer : String) {
         button.setImage(image, for: .normal)

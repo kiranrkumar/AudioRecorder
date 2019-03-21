@@ -10,10 +10,6 @@ import UIKit
 import AVFoundation
 import AVKit
 
-enum RecorderAndPlayerState {
-    case kPaused, kPlaying, kRecording, kStopped
-}
-
 let RecordingDidStartNotification = Notification.Name("RecordingDidStart")
 let RecordingDidFinishNotification = Notification.Name("RecordingDidFinish")
 let PlaybackDidStartNotification = Notification.Name("PlaybackDidStart")
@@ -25,7 +21,6 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     var _soundRecorder : AVAudioRecorder!
     var _soundPlayer : AVAudioPlayer!
     var _audioSession = AVAudioSession.sharedInstance()
-    var _recorderAndPlayerState = RecorderAndPlayerState.kStopped
     var _filename = "audioFile.aac"
     var _playbackVolume : Float = 1.0
     
