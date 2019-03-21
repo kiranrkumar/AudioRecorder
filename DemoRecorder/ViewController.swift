@@ -18,37 +18,44 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playPauseImageButton: UIButton!
-    
-    var soundRecorder : AVAudioRecorder!
-    var soundPlayer : AVAudioPlayer!
-    var audioSession : AVAudioSession!
-    var playPauseState = PlayPauseState.playing
-    
-    var filename : String = "audioFile.aac"
+
+    var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /* Initially, I got the following errors everytime I try to play back recorded audio the FIRST TIME ONLY after launching my app:
-            DemoRecorder[5930:2262392] [avas] AVAudioSessionPortImpl.mm:56:ValidateRequiredFields: Unknown selected data source for Port Speaker (type: Speaker)
-            DemoRecorder[5930:2262392] [avas] AVAudioSessionPortImpl.mm:56:ValidateRequiredFields: Unknown selected data source for Port Receiver (type: Receiver)
-         
-            These errors would show up, and my first segment of recorded audio would not play back. Subsequent segments would work just fine
-         
-            The fix below (from https://forums.developer.apple.com/thread/108785) does not get rid of the errors, but it DOES fix the issues that initially prevented me from playing back my first recording. Additionally, it significantly raises the playback volume.
-         
-            I don't know what these two lines really do. I'll have to investigate
-         */
-        audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, mode: .spokenAudio, options: .defaultToSpeaker)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {}
 
         playButton.layer.cornerRadius = 10;
         recordButton.layer.cornerRadius = 10;
         playButton.isEnabled = false
-        setUpRecorder()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidFinish(_:)), name: RecordingDidFinishNotification, object: recorderAndPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidStart(_:)), name: PlaybackDidStartNotification, object: recorderAndPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidFinish(_:)), name: PlaybackDidFinishNotification, object: recorderAndPlayer)
+    }
+    
+    @objc func _recordingDidStart(_ notification:Notification) {
+        print("Controller: _recordingDidStart\n")
+        recordButton.setTitle("Stop", for: .normal)
+        playButton.isEnabled = false;
+    }
+    
+    @objc func _recordingDidFinish(_ notification:Notification) {
+        print("Controller: _recordingDidFinish\n")
+        recordButton.setTitle("Record", for: .normal)
+        playButton.isEnabled = true;
+    }
+    
+    @objc func _playbackDidStart(_ notification:Notification) {
+        print("Controller: _playbackDidStart\n")
+        recordButton.isEnabled = false;
+        playButton.setTitle("Stop", for: .normal)
+    }
+    
+    @objc func _playbackDidFinish(_ notification:Notification) {
+        print("Controller: _playbackDidFinish\n")
+        recordButton.isEnabled = true;
+        playButton.setTitle("Play", for: .normal)
     }
     
     func getDocumentDirectory() -> URL {
@@ -56,38 +63,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         return paths[0]
     }
     
-    func setUpRecorder() {
-        let audioFilename = getDocumentDirectory().appendingPathComponent(filename)
-        let recordSettings = [AVFormatIDKey : kAudioFormatMPEG4AAC,
-                             AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
-                             AVNumberOfChannelsKey : 2,
-        AVSampleRateKey : 44100.0] as [String : Any]
-        
-        do {
-            soundRecorder = try AVAudioRecorder(url: audioFilename, settings: recordSettings)
-            soundRecorder.delegate = self
-            soundRecorder.prepareToRecord()
-        } catch {
-            print(error)
-        }
-    }
-    
-    func setUpPlayer() {
-        let audioFilename = getDocumentDirectory().appendingPathComponent(filename)
-        
-        do {
-            soundPlayer = try AVAudioPlayer(contentsOf: audioFilename)
-            soundPlayer.delegate = self
-            soundPlayer.prepareToPlay()
-            soundPlayer.volume = 1.0
-        } catch {
-            print(error)
-        }
-    }
-    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         playButton.isEnabled = true
-        setUpPlayer()
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -97,41 +74,33 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     
     @IBAction func recordAction(_ sender: Any) {
         if recordButton.titleLabel?.text == "Record" {
-            soundRecorder.record()
-            recordButton.setTitle("Stop", for: .normal)
-            playButton.isEnabled = false
+            recorderAndPlayer.record()
         } else {
-            soundRecorder.stop()
-            recordButton.setTitle("Record", for: .normal)
-            playButton.isEnabled = true
+            recorderAndPlayer.stopRecording()
         }
     }
     
     @IBAction func playAction(_ sender: Any) {
         if playButton.titleLabel?.text == "Play" {
-            playButton.setTitle("Stop", for: .normal)
-            recordButton.isEnabled = false
-            soundPlayer.play()
+            recorderAndPlayer.play()
         } else {
-            soundPlayer.stop()
-            playButton.setTitle("Play", for: .normal)
-            recordButton.isEnabled = true
+            recorderAndPlayer.stopPlayback()
         }
     }
     
     
-    @IBAction func playPauseTouchUp(_ sender: Any) {
-        var imagePath : String
-        if playPauseState == .paused {
-            playPauseState = .playing
-            imagePath = Bundle.main.path(forResource: "pause", ofType: "png") ?? "" // ?? makes this default to "" if result is nil
-            soundPlayer.play()
-        } else {
-            playPauseState = .paused
-            imagePath = Bundle.main.path(forResource: "play", ofType: "png")! // ! forces "unwrap" meaning that the program will abort if result is nil
-            soundPlayer.pause()
-        }
-        playPauseImageButton.setImage(UIImage(contentsOfFile: imagePath), for: .normal)
-    }
+//    @IBAction func playPauseTouchUp(_ sender: Any) {
+//        var imagePath : String
+//        if playPauseState == .paused {
+//            playPauseState = .playing
+//            imagePath = Bundle.main.path(forResource: "pause", ofType: "png") ?? "" // ?? makes this default to "" if result is nil
+//            soundPlayer.play()
+//        } else {
+//            playPauseState = .paused
+//            imagePath = Bundle.main.path(forResource: "play", ofType: "png")! // ! forces "unwrap" meaning that the program will abort if result is nil
+//            soundPlayer.pause()
+//        }
+//        playPauseImageButton.setImage(UIImage(contentsOfFile: imagePath), for: .normal)
+//    }
 }
 
