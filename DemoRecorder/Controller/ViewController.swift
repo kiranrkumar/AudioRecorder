@@ -15,6 +15,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var playPauseImageButton: UIButton!
 
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
+    
     let playImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "play", ofType: "png")!)
     let pauseImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "pause", ofType: "png")!)
     let recordImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "record", ofType: "png")!)
@@ -40,7 +41,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     
     //MARK: IBActions
     @IBAction func playPauseTouchUp(_ sender: Any) {
-
         let identifier = playPauseImageButton.accessibilityIdentifier!
         if (identifier.elementsEqual(playImageID)) {
             recorderAndPlayer.play()
