@@ -70,16 +70,32 @@
 		CC3DE31D223CAAB1000A1F76 /* DemoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				CC3F743D22436A8700985BB4 /* Controller */,
+				CC3F743C22436A7800985BB4 /* Model */,
 				CC3DE31E223CAAB1000A1F76 /* AppDelegate.swift */,
 				CC948784223CC095008F3543 /* KiranButton.swift */,
-				CC3DE320223CAAB1000A1F76 /* ViewController.swift */,
 				CC3DE322223CAAB1000A1F76 /* Main.storyboard */,
 				CC3DE325223CAAB2000A1F76 /* Assets.xcassets */,
 				CC3DE327223CAAB2000A1F76 /* LaunchScreen.storyboard */,
 				CC3DE32A223CAAB2000A1F76 /* Info.plist */,
-				CCB7C269223F04270034343F /* VoiceRecorderAndPlayer.swift */,
 			);
 			path = DemoRecorder;
+			sourceTree = "<group>";
+		};
+		CC3F743C22436A7800985BB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CCB7C269223F04270034343F /* VoiceRecorderAndPlayer.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CC3F743D22436A8700985BB4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CC3DE320223CAAB1000A1F76 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
