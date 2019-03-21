@@ -84,11 +84,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     }
     
     //MARK: - Other
-    func getDocumentDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
     func updateButton(button : UIButton, image : UIImage, identifer : String) {
         button.setImage(image, for: .normal)
         button.accessibilityIdentifier = identifer
