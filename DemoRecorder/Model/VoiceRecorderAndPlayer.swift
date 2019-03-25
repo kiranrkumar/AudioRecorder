@@ -25,6 +25,8 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     private var _playbackVolume : Float = 1.0
     private var _isPaused : Bool = false
     
+    static let sharedInstance = VoiceRecorderAndPlayer()
+    
     private override init() { // Is it that easy to make the init private?
         
         super.init()
@@ -45,8 +47,6 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
             try _audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {}
     }
-    
-    static let sharedInstance = VoiceRecorderAndPlayer() // static constant property in the class is accessible to all instances of the class and can NOT be overridden by subclasses. The uses extend beyond singletons, but it's good for singletons nevertheless :)
     
     private func setUpRecorder() {
         let audioFilename = getFullPath(forFilename: _filename)
@@ -77,6 +77,7 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
         }
     }
     
+    //MARK: Recording
     func record() {
         _soundRecorder.record()
         NotificationCenter.default.post(name: RecordingDidStartNotification, object: self)
@@ -90,6 +91,7 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
         return _soundRecorder.isRecording
     }
     
+    //MARK: Playback
     func play() {
         _soundPlayer.play()
         _isPaused = false

@@ -12,26 +12,22 @@ import AVFoundation
 class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate { // KRKNOTES - Looks like protocols and superclasses are part of the same list. Here, I'm inheriting from UIViewController and conforming to two protocols
 
     @IBOutlet weak var recordButton: UIButton!
-    @IBOutlet weak var playPauseImageButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
     
     let playImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "play", ofType: "png")!)
     let pauseImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "pause", ofType: "png")!)
-    let recordImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "record", ofType: "png")!)
-    let stopImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "stop", ofType: "png")!)
     
     let playImageID = "ButtonPlay"
     let pauseImageID = "ButtonPause"
-    let recordImageID = "ButtonRecord"
-    let stopImageID = "ButtonStop"
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        playPauseImageButton.isEnabled = false
-        playPauseImageButton.accessibilityIdentifier = playImageID
+        playPauseButton.isEnabled = false
+        playPauseButton.accessibilityIdentifier = playImageID
         stopButton.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
@@ -47,7 +43,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     }
     
     @IBAction func playPauseTouchUp(_ sender: Any) {
-        let identifier = playPauseImageButton.accessibilityIdentifier!
+        let identifier = playPauseButton.accessibilityIdentifier!
         if (identifier.elementsEqual(playImageID)) {
             recorderAndPlayer.play()
         } else if (identifier.elementsEqual(pauseImageID)) {
@@ -66,32 +62,31 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         }
     }
     
-    
     //MARK: Notification Responders
     @objc func _recordingDidStart(_ notification:Notification) {
-        playPauseImageButton.isEnabled = false
+        playPauseButton.isEnabled = false
         recordButton.isEnabled = false
         stopButton.isEnabled = true
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
         recordButton.isEnabled = true
-        playPauseImageButton.isEnabled = true
+        playPauseButton.isEnabled = true
         stopButton.isEnabled = false
     }
     
     @objc func _playbackDidStart(_ notification:Notification) {
         recordButton.isEnabled = false
-        updateButton(button : playPauseImageButton, image: pauseImage!, identifer: pauseImageID)
+        updateButton(button : playPauseButton, image: pauseImage!, identifer: pauseImageID)
         stopButton.isEnabled = true
     }
     
     @objc func _playbackDidPause(_ notification:Notification) {
-        updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
+        updateButton(button : playPauseButton, image: playImage!, identifer: playImageID)
     }
     
     @objc func _playbackDidFinish(_ notification:Notification) {
-        updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
+        updateButton(button : playPauseButton, image: playImage!, identifer: playImageID)
         recordButton.isEnabled = true;
         stopButton.isEnabled = false
     }

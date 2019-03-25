@@ -76,7 +76,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="playPauseImageButton" destination="AGH-Cq-4DC" id="KeZ-Zj-vIB"/>
+                        <outlet property="playPauseButton" destination="AGH-Cq-4DC" id="KeZ-Zj-vIB"/>
                         <outlet property="recordButton" destination="ra9-zM-uea" id="jeY-FY-yem"/>
                         <outlet property="stopButton" destination="AgK-bb-ick" id="2X9-t9-f2D"/>
                     </connections>
