@@ -25,7 +25,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="adc-aC-aVt">
-                                <rect key="frame" x="79.5" y="283.5" width="216" height="100"/>
+                                <rect key="frame" x="21.5" y="283.5" width="332" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-zM-uea" userLabel="Record" customClass="KiranButton" customModule="DemoRecorder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -52,6 +52,17 @@
                                             <action selector="playPauseTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlU-wX-NPz"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgK-bb-ick" userLabel="Stop">
+                                        <rect key="frame" x="232" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="L9U-mD-aGn"/>
+                                            <constraint firstAttribute="height" constant="100" id="hz9-Gx-43W"/>
+                                        </constraints>
+                                        <state key="normal" title="PlayPause" image="stop.png"/>
+                                        <connections>
+                                            <action selector="stopTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rbD-a0-lBZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -67,6 +78,7 @@
                     <connections>
                         <outlet property="playPauseImageButton" destination="AGH-Cq-4DC" id="KeZ-Zj-vIB"/>
                         <outlet property="recordButton" destination="ra9-zM-uea" id="jeY-FY-yem"/>
+                        <outlet property="stopButton" destination="AgK-bb-ick" id="2X9-t9-f2D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -77,5 +89,6 @@
     <resources>
         <image name="play.png" width="117" height="117"/>
         <image name="record.png" width="117" height="117"/>
+        <image name="stop.png" width="117" height="117"/>
     </resources>
 </document>

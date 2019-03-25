@@ -18,11 +18,12 @@ let PlaybackDidFinishNotification = Notification.Name("PlaybackDidFinish")
 
 class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
-    var _soundRecorder : AVAudioRecorder!
-    var _soundPlayer : AVAudioPlayer!
-    var _audioSession = AVAudioSession.sharedInstance()
-    var _filename = "audioFile.aac"
-    var _playbackVolume : Float = 1.0
+    private var _soundRecorder : AVAudioRecorder!
+    private var _soundPlayer : AVAudioPlayer!
+    private var _audioSession = AVAudioSession.sharedInstance()
+    private var _filename = "audioFile.aac"
+    private var _playbackVolume : Float = 1.0
+    private var _isPaused : Bool = false
     
     private override init() { // Is it that easy to make the init private?
         
@@ -85,25 +86,46 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
         _soundRecorder.stop()
     }
     
+    func isRecording() -> Bool {
+        return _soundRecorder.isRecording
+    }
+    
     func play() {
         _soundPlayer.play()
+        _isPaused = false
         NotificationCenter.default.post(name: PlaybackDidStartNotification, object: self)
+    }
+    
+    func pausePlayback() {
+        _soundPlayer.pause()
+        _isPaused = true
+        NotificationCenter.default.post(name: PlaybackDidPauseNotification, object: self)
+    }
+    
+    func isPaused() -> Bool {
+        return _isPaused
     }
     
     func stopPlayback() {
         _soundPlayer.stop()
+        _soundPlayer.currentTime = 0
+        _isPaused = false
         NotificationCenter.default.post(name: PlaybackDidFinishNotification, object: self)
+    }
+    
+    func isPlaying() -> Bool {
+        return _soundPlayer.isPlaying
     }
 
     //MARK: - AVAudioRecorderDelegate
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         setUpPlayer()
         NotificationCenter.default.post(name: RecordingDidFinishNotification, object: self)
-
     }
     
     //MARK: - AVAudioPlayerDelegate
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        _isPaused = false
         NotificationCenter.default.post(name: PlaybackDidFinishNotification, object: self)
     }
     

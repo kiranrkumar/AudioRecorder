@@ -13,7 +13,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playPauseImageButton: UIButton!
-
+    @IBOutlet weak var stopButton: UIButton!
+    
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
     
     let playImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "play", ofType: "png")!)
@@ -29,58 +30,81 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        playPauseImageButton.isEnabled = false;
+        playPauseImageButton.isEnabled = false
+//        recordButton.accessibilityIdentifier = recordImageID
         playPauseImageButton.accessibilityIdentifier = playImageID
-        recordButton.accessibilityIdentifier = recordImageID
+//        stopButton.accessibilityIdentifier = stopImageID
+        stopButton.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidFinish(_:)), name: RecordingDidFinishNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidStart(_:)), name: PlaybackDidStartNotification, object: recorderAndPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidPause(_:)), name: PlaybackDidPauseNotification, object: recorderAndPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(_playbackDidFinish(_:)), name: PlaybackDidFinishNotification, object: recorderAndPlayer)
     }
     
     //MARK: IBActions
+    @IBAction func recordTouchUp(_ sender: Any) {
+//        let identifier = recordButton.accessibilityIdentifier!
+//        if (identifier.elementsEqual(recordImageID)) {
+            recorderAndPlayer.record()
+//        } else if (identifier.elementsEqual(stopImageID)) {
+//            recorderAndPlayer.stopRecording()
+//        } else {
+//            assert(false, "ViewController::recordTouchUp -> Unexpected button identifier")
+//        }
+    }
+    
     @IBAction func playPauseTouchUp(_ sender: Any) {
         let identifier = playPauseImageButton.accessibilityIdentifier!
         if (identifier.elementsEqual(playImageID)) {
             recorderAndPlayer.play()
         } else if (identifier.elementsEqual(pauseImageID)) {
-            recorderAndPlayer.stopPlayback()
+            recorderAndPlayer.pausePlayback()
         } else {
             assert(false, "ViewController::playPauseTouchUp -> Unexpected button identifier")
         }
     }
     
-    @IBAction func recordTouchUp(_ sender: Any) {
-        let identifier = recordButton.accessibilityIdentifier!
-        if (identifier.elementsEqual(recordImageID)) {
-            recorderAndPlayer.record()
-        } else if (identifier.elementsEqual(stopImageID)) {
+    @IBAction func stopTouchUp(_ sender: Any) {
+        if (recorderAndPlayer.isRecording()) {
             recorderAndPlayer.stopRecording()
-        } else {
-            assert(false, "ViewController::recordTouchUp -> Unexpected button identifier")
+        }
+        else if (recorderAndPlayer.isPlaying() || recorderAndPlayer.isPaused()) {
+            recorderAndPlayer.stopPlayback()
         }
     }
     
+    
     //MARK: Notification Responders
     @objc func _recordingDidStart(_ notification:Notification) {
-        playPauseImageButton.isEnabled = false;
-        updateButton(button: recordButton, image: stopImage!, identifer: stopImageID)
+        playPauseImageButton.isEnabled = false
+        recordButton.isEnabled = false
+        //        updateButton(button: recordButton, image: stopImage!, identifer: stopImageID)
+        stopButton.isEnabled = true
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
-        updateButton(button: recordButton, image: recordImage!, identifer: recordImageID)
-        playPauseImageButton.isEnabled = true;
+//        updateButton(button: recordButton, image: recordImage!, identifer: recordImageID)
+        recordButton.isEnabled = true
+        playPauseImageButton.isEnabled = true
+        stopButton.isEnabled = false
     }
     
     @objc func _playbackDidStart(_ notification:Notification) {
-        recordButton.isEnabled = false;
+        recordButton.isEnabled = false
         updateButton(button : playPauseImageButton, image: pauseImage!, identifer: pauseImageID)
+        stopButton.isEnabled = true
+    }
+    
+    @objc func _playbackDidPause(_ notification:Notification) {
+        updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
     }
     
     @objc func _playbackDidFinish(_ notification:Notification) {
         updateButton(button : playPauseImageButton, image: playImage!, identifer: playImageID)
         recordButton.isEnabled = true;
+        stopButton.isEnabled = false
     }
     
     //MARK: - Other
