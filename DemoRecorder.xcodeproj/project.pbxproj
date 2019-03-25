@@ -52,10 +52,7 @@
 			children = (
 				CC3DE31D223CAAB1000A1F76 /* DemoRecorder */,
 				CC3DE31C223CAAB1000A1F76 /* Products */,
-				CC77189F223E3AD0007B6A74 /* pause.png */,
-				CC7718A1223E3AD0007B6A74 /* play.png */,
-				CC7718A2223E3AD0007B6A74 /* record.png */,
-				CC7718A0223E3AD0007B6A74 /* stop.png */,
+				CCD8649B2248A3D900189995 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +93,25 @@
 				CC3DE320223CAAB1000A1F76 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		CCD8649B2248A3D900189995 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CCD8649C2248A3E400189995 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CCD8649C2248A3E400189995 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				CC77189F223E3AD0007B6A74 /* pause.png */,
+				CC7718A1223E3AD0007B6A74 /* play.png */,
+				CC7718A2223E3AD0007B6A74 /* record.png */,
+				CC7718A0223E3AD0007B6A74 /* stop.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
