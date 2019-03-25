@@ -16,7 +16,6 @@
 		CC7718A4223E3AD1007B6A74 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7718A0223E3AD0007B6A74 /* stop.png */; };
 		CC7718A5223E3AD1007B6A74 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7718A1223E3AD0007B6A74 /* play.png */; };
 		CC7718A6223E3AD1007B6A74 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7718A2223E3AD0007B6A74 /* record.png */; };
-		CC948785223CC095008F3543 /* KiranButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC948784223CC095008F3543 /* KiranButton.swift */; };
 		CCB7C26A223F04270034343F /* VoiceRecorderAndPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7C269223F04270034343F /* VoiceRecorderAndPlayer.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +31,6 @@
 		CC7718A0223E3AD0007B6A74 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		CC7718A1223E3AD0007B6A74 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		CC7718A2223E3AD0007B6A74 /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
-		CC948784223CC095008F3543 /* KiranButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiranButton.swift; sourceTree = "<group>"; };
 		CCB7C269223F04270034343F /* VoiceRecorderAndPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorderAndPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +68,6 @@
 				CC3F743D22436A8700985BB4 /* Controller */,
 				CC3F743C22436A7800985BB4 /* Model */,
 				CC3DE31E223CAAB1000A1F76 /* AppDelegate.swift */,
-				CC948784223CC095008F3543 /* KiranButton.swift */,
 				CC3DE322223CAAB1000A1F76 /* Main.storyboard */,
 				CC3DE325223CAAB2000A1F76 /* Assets.xcassets */,
 				CC3DE327223CAAB2000A1F76 /* LaunchScreen.storyboard */,
@@ -189,7 +186,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC948785223CC095008F3543 /* KiranButton.swift in Sources */,
 				CC3DE321223CAAB1000A1F76 /* ViewController.swift in Sources */,
 				CCB7C26A223F04270034343F /* VoiceRecorderAndPlayer.swift in Sources */,
 				CC3DE31F223CAAB1000A1F76 /* AppDelegate.swift in Sources */,
