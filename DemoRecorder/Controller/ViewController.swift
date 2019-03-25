@@ -31,9 +31,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         super.viewDidLoad()
 
         playPauseImageButton.isEnabled = false
-//        recordButton.accessibilityIdentifier = recordImageID
         playPauseImageButton.accessibilityIdentifier = playImageID
-//        stopButton.accessibilityIdentifier = stopImageID
         stopButton.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(_recordingDidStart(_:)), name: RecordingDidStartNotification, object: recorderAndPlayer)
@@ -45,14 +43,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     
     //MARK: IBActions
     @IBAction func recordTouchUp(_ sender: Any) {
-//        let identifier = recordButton.accessibilityIdentifier!
-//        if (identifier.elementsEqual(recordImageID)) {
-            recorderAndPlayer.record()
-//        } else if (identifier.elementsEqual(stopImageID)) {
-//            recorderAndPlayer.stopRecording()
-//        } else {
-//            assert(false, "ViewController::recordTouchUp -> Unexpected button identifier")
-//        }
+        recorderAndPlayer.record()
     }
     
     @IBAction func playPauseTouchUp(_ sender: Any) {
@@ -80,12 +71,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @objc func _recordingDidStart(_ notification:Notification) {
         playPauseImageButton.isEnabled = false
         recordButton.isEnabled = false
-        //        updateButton(button: recordButton, image: stopImage!, identifer: stopImageID)
         stopButton.isEnabled = true
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
-//        updateButton(button: recordButton, image: recordImage!, identifer: recordImageID)
         recordButton.isEnabled = true
         playPauseImageButton.isEnabled = true
         stopButton.isEnabled = false
