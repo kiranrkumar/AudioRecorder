@@ -25,13 +25,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="adc-aC-aVt">
-                                <rect key="frame" x="21.5" y="283.5" width="332" height="100"/>
+                                <rect key="frame" x="96.5" y="308.5" width="182" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-zM-uea" userLabel="Record">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="acy-sD-UEh"/>
-                                            <constraint firstAttribute="width" constant="100" id="yi5-6X-K2g"/>
+                                            <constraint firstAttribute="height" constant="50" id="acy-sD-UEh"/>
+                                            <constraint firstAttribute="width" constant="50" id="yi5-6X-K2g"/>
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Record" image="record.png">
@@ -42,10 +42,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-Cq-4DC" userLabel="Play">
-                                        <rect key="frame" x="116" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="66" y="0.0" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="MRS-eu-b61"/>
-                                            <constraint firstAttribute="width" constant="100" id="UUN-LX-m3y"/>
+                                            <constraint firstAttribute="height" constant="50" id="MRS-eu-b61"/>
+                                            <constraint firstAttribute="width" constant="50" id="UUN-LX-m3y"/>
                                         </constraints>
                                         <state key="normal" title="PlayPause" image="play.png"/>
                                         <connections>
@@ -53,10 +53,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgK-bb-ick" userLabel="Stop">
-                                        <rect key="frame" x="232" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="132" y="0.0" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="L9U-mD-aGn"/>
-                                            <constraint firstAttribute="height" constant="100" id="hz9-Gx-43W"/>
+                                            <constraint firstAttribute="width" constant="50" id="L9U-mD-aGn"/>
+                                            <constraint firstAttribute="height" constant="50" id="hz9-Gx-43W"/>
                                         </constraints>
                                         <state key="normal" title="PlayPause" image="stop.png"/>
                                         <connections>
