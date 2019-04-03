@@ -60,6 +60,7 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
             _soundRecorder = try AVAudioRecorder(url: audioFilename, settings: recordSettings)
             _soundRecorder.delegate = self
             _soundRecorder.prepareToRecord()
+            _soundRecorder.isMeteringEnabled = true
         } catch {
             print(error)
         }
@@ -89,6 +90,10 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     
     func isRecording() -> Bool {
         return _soundRecorder.isRecording
+    }
+    
+    func updateRecordingMeters() {
+        _soundRecorder.updateMeters()
     }
     
     //MARK: Playback
@@ -140,5 +145,15 @@ class VoiceRecorderAndPlayer : NSObject, AVAudioRecorderDelegate, AVAudioPlayerD
     func getFullPath(forFilename : String) -> URL{
         let audioFullFilename = getDocumentDirectory().appendingPathComponent(forFilename)
         return audioFullFilename
+    }
+    
+    func getMeterLevel() -> [Float] {
+        var dbArray : [Float] = []
+        let settings = _soundRecorder.settings
+        let numChannels : Int = settings[AVNumberOfChannelsKey] as! Int
+        for ch in 0...numChannels-1 {
+            dbArray.append(_soundRecorder.averagePower(forChannel: ch))
+        }
+        return dbArray
     }
 }

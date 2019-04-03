@@ -14,8 +14,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var inputValue: UILabel!
+    
     
     var recorderAndPlayer : VoiceRecorderAndPlayer = VoiceRecorderAndPlayer.sharedInstance
+    var timer : Timer!
     
     let playImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "play", ofType: "png")!)
     let pauseImage = UIImage(contentsOfFile:Bundle.main.path(forResource: "pause", ofType: "png")!)
@@ -64,12 +67,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     
     //MARK: Notification Responders
     @objc func _recordingDidStart(_ notification:Notification) {
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(_timerUpdate), userInfo: nil, repeats: true)
+        timer.tolerance = 0.05
         playPauseButton.isEnabled = false
         recordButton.isEnabled = false
         stopButton.isEnabled = true
     }
     
     @objc func _recordingDidFinish(_ notification:Notification) {
+        timer.invalidate()
         recordButton.isEnabled = true
         playPauseButton.isEnabled = true
         stopButton.isEnabled = false
@@ -95,6 +101,12 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     func updateButton(button : UIButton, image : UIImage, identifer : String) {
         button.setImage(image, for: .normal)
         button.accessibilityIdentifier = identifer
+    }
+    
+    @objc func _timerUpdate() {
+        recorderAndPlayer.updateRecordingMeters()
+        let levels : [Float] = recorderAndPlayer.getMeterLevel()
+        inputValue.text = String(format: "%.2f", levels[0]) + " dB"
     }
 }
 
